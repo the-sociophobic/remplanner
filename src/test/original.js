@@ -155,13 +155,13 @@ function flipShapeGeometry(shapeGeometry) {
 }
 
 
-export var addSkirting = async function( roomId, wallId, contour, is_clockwise, contourClosed ){
-    // let contourClosed = false;
+export var addSkirting = async function( roomId, wallId, contour, is_clockwise ){
+    let contourClosed = false;
 
     if ( !is_clockwise ) contour.reverse();
 
 
-    // if (contour.length > 2) contourClosed = true;
+    if (contour.length > 2) contourClosed = true;
 
     let geom = await ProfiledContourGeometry( s, contour, contourClosed, false);
     geom.rotateX(Math.PI * 0.5);

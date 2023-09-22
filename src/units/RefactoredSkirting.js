@@ -9,8 +9,8 @@ class RefactoredSkirting extends Unit {
 
     this.skirtingCreator = new SkirtingCreator(10)
 
-    this.skirting1 = await this.skirtingCreator.create('1', '1', contourExample, false, false)
-    this.skirting2 = await this.skirtingCreator.create('1', '1', contourExample, false, true)
+    this.skirting1 = await this.skirtingCreator.create('1', '1', contourExample, false)
+    this.skirting2 = await this.skirtingCreator.create('1', '1', contourExample.slice(0, 2), false)
 
     this.skirting1.position.set(15, 0, 0)
     this.skirting2.position.set(15, 0, -30)

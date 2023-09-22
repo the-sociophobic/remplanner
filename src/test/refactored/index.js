@@ -14,13 +14,13 @@ class SkirtingCreator {
     this.skirtingHeight = skirtingHeight
   }
 
-  create = async function( roomId, wallId, _contour, is_clockwise, contourClosed ) {
+  create = async function( roomId, wallId, _contour, is_clockwise ) {
     const contour = _contour.slice()
     
     if (!is_clockwise)
       contour.reverse()
 
-    // const contourClosed = contour.length > 2
+    const contourClosed = contour.length > 2
     const skirtingGeometry = await createProfiledContourGeometry(
       shapeExample, contour,
       contourClosed, false
