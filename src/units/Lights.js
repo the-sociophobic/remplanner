@@ -21,22 +21,23 @@ const lightPos = () =>
   )
 
 class Lights extends Unit {
-  init = async () => {
+  async init() {
+    super.init()
 
-  this.lights = Array.from(
-    { length: numberOfLights },
-    (light, index) => {
-      const tmp = new PointLight(
-        lightColors[index % lightColors.length],
-        25,
-        35
-      )
-      tmp.position.copy(lightPos())
-      this.props.scene.add(tmp)
+    this.lights = Array.from(
+      { length: numberOfLights },
+      (light, index) => {
+        const tmp = new PointLight(
+          lightColors[index % lightColors.length],
+          25,
+          35
+        )
+        tmp.position.copy(lightPos())
+        this.props.scene.add(tmp)
 
-      return tmp
-    }
-  )
+        return tmp
+      }
+    )
 
     this.setUnitLoaded()
   }

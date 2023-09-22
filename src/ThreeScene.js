@@ -55,6 +55,7 @@ class ThreeScene {
     this.scene.controls.target.set(0, 0, 0)
     this.scene.controls.update()
 
+    this.scene.clock.start()
     this.initUnits()
 
     if (!this.frameId)
@@ -117,15 +118,15 @@ class ThreeScene {
           this.scene.units[unitName] = new unit.unit({
             ...props,
             ...unit.args,
-            unitLoaded: () => this.unitLoaded(unitName),
+            unitLoaded: (time) => this.unitLoaded(unitName, time),
           })
         this.scene.units[unitName].init?.()
       })
   }
 
-  unitLoaded = (name) => {
+  unitLoaded = (name, time) => {
     this.scene.numberOfLoadedUnits++
-    console.log(`${name} loaded`)
+    console.log(`${name} loaded in ${time} ms`)
 
     if (this.scene.numberOfLoadedUnits >= Object.keys(this.scene.units).length)
       this.scene.sceneLoaded = true

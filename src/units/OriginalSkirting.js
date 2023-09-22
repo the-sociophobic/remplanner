@@ -4,7 +4,9 @@ import { contourExample } from '../utils/examples'
 
 
 class OriginalSkirting extends Unit {
-  init = async () => {
+  async init() {
+    super.init()
+
     this.skirting = await addSkirting('1', '1', contourExample, true)
 
     this.skirting.position.set(-15, 0, 0)
