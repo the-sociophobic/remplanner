@@ -25,7 +25,6 @@ function createProfiledContourGeometry(
 
   const profilePos = profileGeometry.attributes.position
   const profilePoints = new Float32Array(profilePos.count * (contour.length + addEnds) * 3)
-  const endProfiles = []
 
   for (let i = 0; i < contour.length; i++) {
     const v1 = new Vector2().subVectors(contour[(i - 1 + contour.length) % contour.length], contour[i])
@@ -41,7 +40,7 @@ function createProfiledContourGeometry(
         tempAngle = v1.angle() - Math.PI * 0.5
     }
 
-    const shift = Math.tan(hA - Math.PI * 0.5)
+    const shift = Math.atan(hA - Math.PI * 0.5)
     const shiftMatrix = new Matrix4().set(
       1, 0, 0, 0,
       -shift, 1, 0, 0,
@@ -70,15 +69,7 @@ function createProfiledContourGeometry(
     cloneProfile.applyMatrix4(translationMatrix)
 
     profilePoints.set(cloneProfile.array, cloneProfile.count * i * 3)
-    if (!openEnded && (i === 0 || i === contour.length - 1)) {
-      endProfiles.push(cloneProfile)
-    }
   }
-
-  endProfiles.forEach((endProfile, index) =>
-    profilePoints.set(endProfile.array, endProfile.count * (contour.length + index) * 3)
-  )
-
 
 
 
@@ -107,12 +98,10 @@ function createProfiledContourGeometry(
   if (!openEnded) {
     const flipProfileGeometry = flipShapeGeometry(profileGeometry)
 
-    flipProfileGeometry.index.array
-      .forEach(i =>
-        fullProfileGeometryIndex.push(i + profilePos.count * contour.length))
+    fullProfileGeometryIndex.push(...flipProfileGeometry.index.array)
     profileGeometry.index.array
       .forEach(i =>
-        fullProfileGeometryIndex.push(i + profilePos.count * (contour.length + 1)))
+        fullProfileGeometryIndex.push(i + profilePos.count * (contour.length - 1)))
   }
 
   fullProfileGeometry.setIndex(fullProfileGeometryIndex)

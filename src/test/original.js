@@ -163,7 +163,7 @@ export var addSkirting = async function( roomId, wallId, contour, is_clockwise )
 
     if (contour.length > 2) contourClosed = true;
 
-    let geom = await ProfiledContourGeometry( s, contour, contourClosed, false);
+    let geom = await ProfiledContourGeometry( s, contour, false, false);
     geom.rotateX(Math.PI * 0.5);
     geom.translate(0, skirtingHeight, 0);
 

@@ -21,7 +21,7 @@ class SkirtingCreator {
     const contourClosed = contour.length > 2
     const skirtingGeometry = await createProfiledContourGeometry(
       shapeExample, contour,
-      contourClosed, false
+      false, false
     )
 
     skirtingGeometry.rotateX(Math.PI * 0.5)
