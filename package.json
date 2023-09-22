@@ -1,0 +1,15 @@
+{
+  "name": "remplanner",
+  "scripts": {
+    "start": "npx webpack serve",
+    "build": "webpack"
+  },
+  "devDependencies": {
+    "webpack": "^5.38.1",
+    "webpack-cli": "^4.7.2",
+    "webpack-dev-server": "^4.15.1"
+  },
+  "dependencies": {
+    "three": "^0.156.1"
+  }
+}
