@@ -7,8 +7,8 @@ class OriginalSkirting extends Unit {
   async init() {
     super.init()
 
-    this.skirting1 = await addSkirting('1', '1', contourExample, false, false)
-    this.skirting2 = await addSkirting('1', '1', contourExample, false, true)
+    this.skirting1 = await addSkirting('1', '1', contourExample.slice(), false, false)
+    this.skirting2 = await addSkirting('1', '1', contourExample.slice(), false, true)
 
     this.skirting1.position.set(-15, 0, 0)
     this.skirting2.position.set(-15, 0, -30)

@@ -46,7 +46,7 @@ function createProfiledContourGeometry(
         tempAngle = wall1.angle() - Math.PI * 0.5
     }
 
-    const shift = Math.atan(hA - Math.PI * 0.5)
+    const shift = Math.tan(hA - Math.PI * 0.5)
     shiftMatrix.set(
       1, 0, 0, 0,
       -shift, 1, 0, 0,
