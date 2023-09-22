@@ -5,7 +5,7 @@ import { contourExample } from '../utils/examples'
 
 class RefactoredSkirting extends Unit {
   init = async () => {
-    this.skirtingCreator = new SkirtingCreator(3)
+    this.skirtingCreator = new SkirtingCreator(10)
     this.skirting = await this.skirtingCreator.create('1', '1', contourExample, true)
 
     this.skirting.position.set(15, 0, 0)

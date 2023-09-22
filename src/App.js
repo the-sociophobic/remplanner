@@ -1,6 +1,7 @@
 import ThreeScene from './ThreeScene'
 import OriginalSkirting from './units/OriginalSkirting'
 import RefactoredSkirting from './units/RefactoredSkirting'
+import Lights from './units/Lights'
 
 
 const App = () => {
@@ -14,6 +15,9 @@ const App = () => {
     },
     refactored: {
       unit: RefactoredSkirting
+    },
+    lights: {
+      unit: Lights
     },
   })
 

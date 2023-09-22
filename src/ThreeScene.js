@@ -33,7 +33,6 @@ class ThreeScene {
   init = (root) => {
     const W = root.clientWidth
     const H = root.clientHeight
-    console.log(root.clientWidth)
 
     //ADD RENDERER
     this.scene.renderer = new WebGLRenderer({ antialias: true, alpha: true })
@@ -152,7 +151,6 @@ class ThreeScene {
     Object.keys(units)
       .forEach(unitName => units[unitName].dispose())
 
-    //REDO THIS SHIT: units should unregister themselves
     while (scene.children.length > 0)
       scene.remove(scene.children[0])
   }
