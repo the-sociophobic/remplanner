@@ -8,11 +8,16 @@ class RefactoredSkirting extends Unit {
     super.init()
 
     this.skirtingCreator = new SkirtingCreator(10)
-    this.skirting = await this.skirtingCreator.create('1', '1', contourExample, true)
 
-    this.skirting.position.set(15, 0, 0)
+    this.skirting1 = await this.skirtingCreator.create('1', '1', contourExample, false, false)
+    this.skirting2 = await this.skirtingCreator.create('1', '1', contourExample, false, true)
 
-    this.props.scene.add(this.skirting)
+    this.skirting1.position.set(15, 0, 0)
+    this.skirting2.position.set(15, 0, -30)
+
+    this.props.scene.add(this.skirting1)
+    this.props.scene.add(this.skirting2)
+
     this.setUnitLoaded()
   }
 }

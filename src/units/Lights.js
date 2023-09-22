@@ -4,7 +4,7 @@ import Unit from './Unit'
 
 
 const numberOfLights = 20
-const arenaRadius = 45
+const arenaRadius = 100
 const lightColors = [
   '#00c797',
   '#e400da',
@@ -29,8 +29,8 @@ class Lights extends Unit {
       (light, index) => {
         const tmp = new PointLight(
           lightColors[index % lightColors.length],
-          25,
-          35
+          500,
+          75
         )
         tmp.position.copy(lightPos())
         this.props.scene.add(tmp)

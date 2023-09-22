@@ -26,36 +26,42 @@ function createProfiledContourGeometry(
   const profilePos = profileGeometry.attributes.position
   const profilePoints = new Float32Array(profilePos.count * (contour.length + addEnds) * 3)
 
+  const wall1 = new Vector2()
+  const wall2 = new Vector2()
+  const shiftMatrix = new Matrix4()
+  const rotationMatrix = new Matrix4()
+  const translationMatrix = new Matrix4()
+
   for (let i = 0; i < contour.length; i++) {
-    const v1 = new Vector2().subVectors(contour[(i - 1 + contour.length) % contour.length], contour[i])
-    const v2 = new Vector2().subVectors(contour[(i + 1)                  % contour.length], contour[i])
-    const angle = v2.angle() - v1.angle()
+    wall1.subVectors(contour[(i - 1 + contour.length) % contour.length], contour[i])
+    wall2.subVectors(contour[(i + 1)                  % contour.length], contour[i])
+    const angle = wall2.angle() - wall1.angle()
     let hA = angle * 0.5
-    let tempAngle = v2.angle() + Math.PI * 0.5
+    let tempAngle = wall2.angle() + Math.PI * 0.5
 
     if (!contourClosed) {
       if (i === contour.length - 1 || i === 0)
         hA = Math.PI * 0.5
       if (i === contour.length - 1)
-        tempAngle = v1.angle() - Math.PI * 0.5
+        tempAngle = wall1.angle() - Math.PI * 0.5
     }
 
     const shift = Math.atan(hA - Math.PI * 0.5)
-    const shiftMatrix = new Matrix4().set(
+    shiftMatrix.set(
       1, 0, 0, 0,
       -shift, 1, 0, 0,
       0, 0, 1, 0,
       0, 0, 0, 1
     )
 
-    const rotationMatrix = new Matrix4().set(
+    rotationMatrix.set(
       Math.cos(tempAngle), -Math.sin(tempAngle), 0, 0,
       Math.sin(tempAngle),  Math.cos(tempAngle), 0, 0,
       0,                    0, 1, 0,
       0,                    0, 0, 1
     )
 
-    const translationMatrix = new Matrix4().set(
+    translationMatrix.set(
       1, 0, 0, contour[i].x,
       0, 1, 0, contour[i].y,
       0, 0, 1, 0,

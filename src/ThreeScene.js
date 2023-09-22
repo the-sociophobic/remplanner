@@ -51,8 +51,8 @@ class ThreeScene {
     )
     this.scene.controls = new OrbitControls(this.scene.camera, this.scene.renderer.domElement)
     this.scene.controls.enabled = true
-    this.scene.camera.position.set(0, 30, 30)
-    this.scene.controls.target.set(0, 0, 0)
+    this.scene.camera.position.set(0, 57, 57)
+    this.scene.controls.target.set(0, 0, -30)
     this.scene.controls.update()
 
     this.scene.clock.start()
