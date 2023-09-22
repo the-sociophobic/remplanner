@@ -1,4 +1,8 @@
-import * as THREE from 'three'
+import {
+  Mesh,
+  MeshStandardMaterial,
+  FrontSide
+} from 'three'
 
 import { shapeExample } from '../../utils/examples'
 import createProfiledContourGeometry from './createProfiledContourGeometry'
@@ -23,9 +27,9 @@ class SkirtingCreator {
     skirtingGeometry.rotateX(Math.PI * 0.5)
     skirtingGeometry.translate(0, this.skirtingHeight, 0)
 
-    const skirting = new THREE.Mesh(
+    const skirting = new Mesh(
       skirtingGeometry,
-      new THREE.MeshStandardMaterial({ side: THREE.FrontSide })
+      new MeshStandardMaterial({ side: FrontSide })
     )
 
     skirting.name = "skirting|" + roomId + "|" + wallId + "|" + this.skirtingNum

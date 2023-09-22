@@ -1,4 +1,10 @@
-import * as THREE from 'three'
+import {
+  ShapeGeometry,
+  Vector2,
+  Matrix4,
+  BufferGeometry,
+  BufferAttribute
+} from 'three'
 
 import flipShapeGeometry from './flipShapeGeometry'
 
@@ -14,7 +20,7 @@ function createProfiledContourGeometry(
     _openEnded !== undefined ? _openEnded : false
   const addEnds = openEnded ? 0 : 2
 
-  const profileGeometry = new THREE.ShapeGeometry(profileShape)
+  const profileGeometry = new ShapeGeometry(profileShape)
   profileGeometry.rotateX(Math.PI * 0.5)
 
   const profilePos = profileGeometry.attributes.position
@@ -22,8 +28,8 @@ function createProfiledContourGeometry(
   const endProfiles = []
 
   for (let i = 0; i < contour.length; i++) {
-    const v1 = new THREE.Vector2().subVectors(contour[(i - 1 + contour.length) % contour.length], contour[i])
-    const v2 = new THREE.Vector2().subVectors(contour[(i + 1)                  % contour.length], contour[i])
+    const v1 = new Vector2().subVectors(contour[(i - 1 + contour.length) % contour.length], contour[i])
+    const v2 = new Vector2().subVectors(contour[(i + 1)                  % contour.length], contour[i])
     const angle = v2.angle() - v1.angle()
     let hA = angle * 0.5
     let tempAngle = v2.angle() + Math.PI * 0.5
@@ -36,21 +42,21 @@ function createProfiledContourGeometry(
     }
 
     const shift = Math.tan(hA - Math.PI * 0.5)
-    const shiftMatrix = new THREE.Matrix4().set(
+    const shiftMatrix = new Matrix4().set(
       1, 0, 0, 0,
       -shift, 1, 0, 0,
       0, 0, 1, 0,
       0, 0, 0, 1
     )
 
-    const rotationMatrix = new THREE.Matrix4().set(
+    const rotationMatrix = new Matrix4().set(
       Math.cos(tempAngle), -Math.sin(tempAngle), 0, 0,
       Math.sin(tempAngle),  Math.cos(tempAngle), 0, 0,
       0,                    0, 1, 0,
       0,                    0, 0, 1
     )
 
-    const translationMatrix = new THREE.Matrix4().set(
+    const translationMatrix = new Matrix4().set(
       1, 0, 0, contour[i].x,
       0, 1, 0, contour[i].y,
       0, 0, 1, 0,
@@ -76,8 +82,8 @@ function createProfiledContourGeometry(
 
 
 
-  const fullProfileGeometry = new THREE.BufferGeometry()
-  fullProfileGeometry.setAttribute('position', new THREE.BufferAttribute(profilePoints, 3))
+  const fullProfileGeometry = new BufferGeometry()
+  fullProfileGeometry.setAttribute('position', new BufferAttribute(profilePoints, 3))
   const fullProfileGeometryIndex = []
   const lastCorner = contourClosed ? contour.length : contour.length - 1
 
