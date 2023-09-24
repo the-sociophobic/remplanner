@@ -6,9 +6,14 @@ import {
   BufferAttribute
 } from 'three'
 
-import flipShapeGeometry from './flipShapeGeometry'
+import flipNormals from './flipNormals'
 
 
+/*
+  (profileShape: THREE.Shape, contour: THREE.Vector2[],
+    _contourClosed: boolean, _openEnded: boolean)
+  => Promise<THREE.BufferGeometry>
+*/
 async function createProfiledContourGeometry(
   profileShape, contour,
   _contourClosed, _openEnded
@@ -32,6 +37,7 @@ async function createProfiledContourGeometry(
     const rotationMatrix = new Matrix4()
     const translationMatrix = new Matrix4()
   
+    // Добавляем вертексы для сечений плинтуса
     for (let i = 0; i < contour.length; i++) {
       wall1.subVectors(contour[(i - 1 + contour.length) % contour.length], contour[i])
       wall2.subVectors(contour[(i + 1)                  % contour.length], contour[i])
@@ -78,7 +84,7 @@ async function createProfiledContourGeometry(
     }
   
   
-  
+    // Записываем индексы вертексов, которые образуют полигоны
     const fullProfileGeometry = new BufferGeometry()
     fullProfileGeometry.setAttribute('position', new BufferAttribute(profilePoints, 3))
     const fullProfileGeometryIndex = []
@@ -102,7 +108,7 @@ async function createProfiledContourGeometry(
     }
   
     if (!openEnded) {
-      const flipProfileGeometry = flipShapeGeometry(profileGeometry)
+      const flipProfileGeometry = flipNormals(profileGeometry)
   
       fullProfileGeometryIndex.push(...flipProfileGeometry.index.array)
       profileGeometry.index.array
@@ -112,7 +118,8 @@ async function createProfiledContourGeometry(
   
     fullProfileGeometry.setIndex(fullProfileGeometryIndex)
     fullProfileGeometry.computeVertexNormals()
-  
+    fullProfileGeometry.rotateX(Math.PI * 0.5)
+
     res(fullProfileGeometry)
   })
 }

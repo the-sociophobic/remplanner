@@ -11,6 +11,10 @@ const maxFrameNumber = Number.MAX_VALUE
 
 
 class ThreeScene {
+  /*
+    (root: HTMLDivElement, units: { [unitName: string]: { unit: Unit } })
+    => void
+  */
   constructor(root, units) {
     this.props = { units: units || {} }
     this.scene = {

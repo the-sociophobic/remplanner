@@ -1,4 +1,8 @@
-function flipShapeGeometry( shapeGeometry ) {
+/*
+  (shapeGeometry: ShapeGeometry)
+  => ShapeGeometry
+*/
+function flipNormals( shapeGeometry ) {
   const result = shapeGeometry.clone()
 
   const { index } = result
@@ -11,4 +15,4 @@ function flipShapeGeometry( shapeGeometry ) {
 }
 
 
-export default flipShapeGeometry
+export default flipNormals

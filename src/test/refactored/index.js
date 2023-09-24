@@ -14,6 +14,10 @@ class SkirtingCreator {
     this.skirtingHeight = skirtingHeight
   }
 
+  /*
+    (roomId: string, wallId: string, _contour: THREE.Vector2[], is_clockwise: boolean)
+    => Promise<THREE.Mesh>
+  */
   create = async function( roomId, wallId, _contour, is_clockwise ) {
     const contour = _contour.slice()
     
@@ -26,7 +30,6 @@ class SkirtingCreator {
       contourClosed, false
     )
 
-    skirtingGeometry.rotateX(Math.PI * 0.5)
     skirtingGeometry.translate(0, this.skirtingHeight, 0)
 
     const skirting = new Mesh(
